@@ -1,0 +1,16 @@
+import subprocess
+
+comando = 'ls'
+resultado_comando = str(subprocess.check_output([comando]))
+
+lista_arquivos = resultado_comando.split("'")
+lista_arquivos = lista_arquivos[1].split("\\n")
+del lista_arquivos[-1]
+
+import os
+
+for i in range(len(lista_arquivos)):
+  	seq=lista_arquivos[i]
+
+	  comando = 'makeblastdb -in ' + seq + ' -dbtype prot'
+	  os.system(comando)
