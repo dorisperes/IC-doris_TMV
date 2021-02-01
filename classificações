@@ -1,0 +1,43 @@
+import csv
+
+def Abrir(nome_arquivo):
+    with open(nome_arquivo, newline = '') as arquivo:
+        arquivo_lido = list(csv.reader(arquivo, delimiter = '\t'))
+    return arquivo_lido
+lista = Abrir('Orthogroups.tsv')
+
+l = lista
+
+
+for linha in range(1,len(l)):
+    col = len(l[linha])
+    l[linha].append([])
+    
+    for coluna in range(1,col):      
+        if(l[linha][coluna] != ''):
+            l[linha][col].append(l[0][coluna])
+    #l[linha][-1] = "_".join(l[linha][-1])
+    
+gen_coleo = [['Atum', 'Cmac', 'Dvir', 'Nves', 'Sory', 'Tcas']]
+gen_dictyo = [['Bger', 'Csec', 'Znev']]
+gen_dipt = [['Aaeg', 'Agam', 'Mdom',]]
+gen_hemip = [['Agos', 'Msac', 'Sfla']]
+gen_hymeno = [['Amel', 'Bter', 'Nful', 'Obic']]
+gen_psoco = [['Phum']]
+esp_atum = [['Atum']]
+esp_cmac = [['Cmac']]
+esp_dvir = [['Dvir']]
+esp_sory = [['Sory']]
+esp_tcas = [['Tcas']]
+praga_esp = [['Cmac', 'Sory', 'Tcas']]
+all_insec = [['Aaeg', 'Agam', 'Agos', 'Amel', 'Atum', 'Bger', 'Bter', 'Cmac', 'Csec', 'Dvir', 'Mdom', 'Msac', 'Nful', 'Nves', 'Obic', 'Phum', 'Sfla', 'Sory', 'Tcas', 'Znev']]
+
+classificacoes = {'gen_coleo':gen_coleo, 'gen_dictyo':gen_dictyo, 'gen_dipt':gen_dipt, 'gen_hemip':gen_hemip, 'gen_hymeno':gen_hymeno, 'gen_psoco':gen_psoco, 'esp_atum':esp_atum, 'esp_cmac':esp_cmac, 'esp_dvir':esp_dvir, 'esp_sory':esp_sory, 'esp_tcas':esp_tcas, 'praga_esp':praga_esp, 'all_insec':all_insec}
+
+for linha in range(1,len(l)):
+    for i in classificacoes.keys():
+        if(lista[linha][-1] == classificacoes[i][0]):
+            classificacoes[i].append(lista[linha][0])
+
+for i in classificacoes.keys():
+    print(i, len(classificacoes[i]))
