@@ -1,0 +1,24 @@
+import subprocess as sp
+import os
+
+comando = 'ls *.faa'
+
+p = sp.Popen(comando,
+                     shell = True,
+                     stdout = sp.PIPE,
+                     stderr = sp.PIPE)
+out, err = p.communicate()
+
+
+lista = str(out).split("'")[1].split("\\n")
+del lista[-1]
+
+pp = lista
+
+for i in range(len(pp)):
+      for x in range(len(pp)):
+            nome = pp[i][:-8] + '_' + pp[x][:-8] + '.txt'
+            comando2 = 'blastp -num_threads 4 -query ' + pp[i] + ' -db ' + pp[x] + ' -outfmt "6 qseqid sseqid pident length mismach gapopen qstart qend sstart send evalue bitscore ppos" -out ' + nome
+            comando3 = '(time ' + comando2 + ') > log_ + nome +'2>&1'
+
+            os.system(comando3)
